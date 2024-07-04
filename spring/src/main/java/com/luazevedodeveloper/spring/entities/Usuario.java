@@ -1,15 +1,13 @@
 package com.luazevedodeveloper.spring.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import java.io.Serial;
 import java.io.Serializable;
 
 @Data
 @Entity
+@Table(name = "tb_usuario")
 public class Usuario implements Serializable {
 
     @Serial
