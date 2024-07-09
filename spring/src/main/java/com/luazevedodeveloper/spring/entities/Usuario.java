@@ -4,12 +4,13 @@ import jakarta.persistence.*;
 import lombok.Data;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
 @Table(name = "tb_usuario")
 public class Usuario implements Serializable {
-
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -21,8 +22,12 @@ public class Usuario implements Serializable {
     private String telefone;
     private String senha;
 
-    public Usuario(){
-    }
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedidos = new ArrayList<>();
+
+    public Usuario() {
+
+        }
 
     public Usuario(Long id, String nome, String email, String telefone, String senha) {
         this.id = id;
