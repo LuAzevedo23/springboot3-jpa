@@ -1,32 +1,42 @@
 package com.luazevedodeveloper.spring.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.io.Serial;
+
 import java.io.Serializable;
-import java.util.Date;
+import java.time.Instant;
 
 @Data
+@EqualsAndHashCode
 @Entity
 @Table(name = "tb_pedido")
 public class Pedido implements Serializable {
-    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date momentoDoPedido;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+    private Instant momentoDoPedido;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")   //muitos para um do BD
+    @JoinColumn(name = "cliente_id")   // Muitos pedidos para um cliente no banco de dados
     private Usuario cliente;
 
-    public Pedido() {
+    // Construtor com todos os argumentos
+    public Pedido(Long id, Instant momentoDoPedido, Usuario cliente) {
+        this.id = id;
+        this.momentoDoPedido = momentoDoPedido;
+        this.cliente = cliente;
+    }
 
+    // Construtor vazio necessário para JPA
+    public Pedido() {
     }
 }
-
 
 
