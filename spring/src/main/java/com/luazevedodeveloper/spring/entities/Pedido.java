@@ -23,14 +23,18 @@ public class Pedido implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant momentoDoPedido;
 
+    private Integer statusDoPedido;
+    //Estou dizendo que estou gravando no BD um numero inteiro
+
     @ManyToOne
     @JoinColumn(name = "cliente_id")   // Muitos pedidos para um cliente no banco de dados
     private Usuario cliente;
 
     // Construtor com todos os argumentos
-    public Pedido(Long id, Instant momentoDoPedido, Usuario cliente) {
+    public Pedido(Long id, Instant momentoDoPedido, StatusDoPedido statusDoPedido, Usuario cliente) {
         this.id = id;
         this.momentoDoPedido = momentoDoPedido;
+        this.statusDoPedido = statusDoPedido != null ? statusDoPedido.getCode() : null;
         this.cliente = cliente;
     }
 
